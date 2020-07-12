@@ -6,8 +6,8 @@
 			<input type="checkbox" id="privacy-accept" v-model="checked" />
 			<label for="privacy-accept">{{ privacyAcknowledgement }}</label>
 		</div>
-		<router-link to="/question/0" v-if="checked">
-			<button>
+		<router-link to="/question/0">
+			<button :disabled="!checked">
 				{{ nextPageText }}
 			</button>
 		</router-link>
@@ -22,7 +22,7 @@ import {
 } from '@/config.js'
 
 export default {
-	name: 'Homepage',
+	name: 'PrivacyDisclaimer',
 	data() {
 		return {
 			checked: false,

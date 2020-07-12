@@ -26,7 +26,7 @@ module.exports = {
 		Please see to https://github.com/ai/audio-recorder-polyfill for possible config
 	*/
 	recorderOptions: {
-		mimeType: 'audio/wav',
+		// mimeType: 'audio/webm',
 		audioBitsPerSecond: 256000,
 	}
 }

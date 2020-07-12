@@ -12,7 +12,7 @@
 			mic-failed="console.log('sad meow')"
 			upload-url="" -->
 	<div>
-		<audio id="player"></audio>
+		<audio id="player" :src="currentURL"></audio>
 		<div class="recorder">
 			<button class="record" @click="switchRecordingState">
 				{{ isRecording ? stopRecordingText : startRecordingText }}
@@ -51,15 +51,7 @@ export default {
 			Method to initiate recording the current Question
 		*/
 		switchRecordingState() {
-			this.isRecording ? stopRecording() : startRecording()
-		},
-		createAudioFile() {
-			console.log(chunks)
-			this.audioBlob = new Blob(this.chunks, {
-				type: recorderOptions.mimeType,
-			})
-			this.audioUrl = windows.URL.createObjectURL(blob)
-			this.chunks = []
+			this.isRecording ? this.stopRecording() : this.startRecording()
 		},
 	},
 }

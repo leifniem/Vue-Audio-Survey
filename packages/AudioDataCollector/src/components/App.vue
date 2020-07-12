@@ -113,12 +113,17 @@ button {
 	color: var(--button-text-color);
 	border: none;
 
-	&:hover {
+	&:not(:disabled):hover {
 		box-shadow: inset 0 3px 0 var(--primary-dark);
 	}
 
 	&:active {
 		background:var(--primary-dark);
+	}
+
+	&:disabled {
+		background: #ddd;
+		color: #bbb;
 	}
 }
 </style>
