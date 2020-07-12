@@ -41,7 +41,7 @@ label {
 }
 
 .accept {
-	margin-top: 2rem;
+	margin: 2rem 0;
 	padding: 1rem;
 	background: #eee;
 	border-radius: 5px;

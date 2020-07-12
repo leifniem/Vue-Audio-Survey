@@ -2,7 +2,7 @@
 	<div id="app">
 		<header class="wrapper site-header">
 			<div class="logo">
-				<img :src="logo" alt="" />
+				<img :src="logo.default" alt="" />
 			</div>
 			<div class="title">
 				<h1 v-if="title">{{ title }}</h1>
@@ -16,8 +16,7 @@
 </template>
 
 <script>
-import { title, subtitle } from '@/config.js'
-import logo from '@/img/logo.svg'
+import { title, subtitle, logo } from '@/config.js'
 
 export default {
 	name: 'AppWrapper',
@@ -36,12 +35,16 @@ export default {
 *:after,
 *:before {
 	box-sizing: border-box;
-	--primary-color: #4e6f7d;
-	--text-color: #3f4344;
+	--background: #ffffff;
+	--light-background: #edf0f1;
+	--primary-color: #4b95b4;
+	--primary-dark: #2d597c;
+	--text-color: #2a2d2e;
 	--button-text-color: #ffffff;
 }
 
 body {
+	background: var(--background);
 	font-family: sans-serif;
 	line-height: 1.8;
 	font-size: 1rem;
@@ -109,5 +112,13 @@ button {
 	font-weight: bold;
 	color: var(--button-text-color);
 	border: none;
+
+	&:hover {
+		box-shadow: inset 0 3px 0 var(--primary-dark);
+	}
+
+	&:active {
+		background:var(--primary-dark);
+	}
 }
 </style>

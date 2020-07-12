@@ -13,41 +13,91 @@
 			upload-url="" -->
 	<div>
 		<audio id="player"></audio>
-		<button class="record" @click="switchRecordingState">
-			{{ isRecording ? 'Stop recording' : 'Start recording' }}
-		</button>
+		<div class="recorder">
+			<button class="record" @click="switchRecordingState">
+				{{ isRecording ? stopRecordingText : startRecordingText }}
+			</button>
+			<div :class="{ 'record-dot': true, animating: isRecording }"></div>
+		</div>
 	</div>
 </template>
 
 <script>
-import Recorder from '@/js/recorder'
+import {
+	maxTakeLength,
+	recorderOptions,
+	startRecordingText,
+	stopRecordingText,
+} from '@/config.js'
+import RecorderMixin from '@/js/recorderMixin'
+
+let recorder
+let chunks = []
+let audioBlob
+let audioUrl
 
 export default {
 	name: 'Recorder',
 	props: ['id'],
 	data() {
 		return {
-			isRecording: false,
+			startRecordingText,
+			stopRecordingText
 		}
 	},
+	mixins: [RecorderMixin],
 	methods: {
 		/*
 			Method to initiate recording the current Question
 		*/
 		switchRecordingState() {
-			if (!this.isRecording) {
-				recorder.start()
-				/* If a max length is set for takes invoke it */
-				if (maxTakeLength) setTimeout(() => {
-					recorder.stop()
-				}, maxTakeLength);
-			} else {
-				player.src = recorder.stop()
-			}
+			this.isRecording ? stopRecording() : startRecording()
+		},
+		createAudioFile() {
+			console.log(chunks)
+			this.audioBlob = new Blob(this.chunks, {
+				type: recorderOptions.mimeType,
+			})
+			this.audioUrl = windows.URL.createObjectURL(blob)
+			this.chunks = []
 		},
 	},
-	beforeMount () {
-		const recorder = new Recorder()
-	}
 }
 </script>
+
+<style lang="scss" scoped>
+.recorder {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding-left: 1.5rem;
+}
+
+@keyframes pulse {
+	0% {
+		opacity: 0;
+	}
+
+	0% {
+		opacity: 1;
+	}
+}
+
+.record-dot {
+	&:after {
+		width: 1rem;
+		height: 1rem;
+		border-radius: 50%;
+		display: block;
+		content: '';
+		margin-left: 1rem;
+		opacity: 0;
+		background: rgb(233, 67, 67);
+	}
+
+	&.animating:after {
+		animation: pulse 1s alternate infinite;
+	}
+}
+</style>

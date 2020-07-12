@@ -1,9 +1,12 @@
 module.exports = {
+	//
+	title: 'Curious Cat Inc.',
+	logo: require('./img/logo.svg'),
 	apiUrl: 'localhost:9000',
 	individualApiEndpoints: false,
-	logo: 'img/logo.svg',
+	startRecordingText: 'Start Recording',
+	stopRecordingText: 'Stop Recording',
 	nextPageText: 'Proceed →',
-	title: 'Curious Cat Inc.',
 	subtitle: 'Survey to train hoomans to obey',
 	introduction: `
 		In this app you'll be asked to record a few samples of your voice in order to train cats to listen to humans.
@@ -19,6 +22,11 @@ module.exports = {
 	`,
 	privacyAcknowledgement: 'I fully understand Privacy Policy above and acknowledge it.',
 	maxTakeLength: 5000,
-	audioMimeType: 'audio/webm',
-	audioBitrate: 256000,
+	/*
+		Please see to https://github.com/ai/audio-recorder-polyfill for possible config
+	*/
+	recorderOptions: {
+		mimeType: 'audio/wav',
+		audioBitsPerSecond: 256000,
+	}
 }
