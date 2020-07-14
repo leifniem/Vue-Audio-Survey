@@ -21,4 +21,4 @@ the boilerplate.
 
 [audio recorder polyfill]: https://github.com/ai/audio-recorder-polyfill
 [vue audio recorder]: https://github.com/grishkovelli/vue-audio-recorder
-[vue-2-webpack-4-boilerplate]:[https://github.com/samteb/vue-2-webpack-4-boilerplate]
+[vue-2-webpack-4-boilerplate]:https://github.com/samteb/vue-2-webpack-4-boilerplate
