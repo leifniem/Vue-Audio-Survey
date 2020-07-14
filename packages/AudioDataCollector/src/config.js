@@ -2,7 +2,7 @@ module.exports = {
 	//
 	title: 'Curious Cat Inc.',
 	logo: require('./img/logo.svg'),
-	apiUrl: 'localhost:9000',
+	apiURL: 'localhost:9000',
 	individualApiEndpoints: false,
 	startRecordingText: 'Start Recording',
 	stopRecordingText: 'Stop Recording',
