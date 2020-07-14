@@ -12,3 +12,12 @@ Frontend for executing surveys that collect data in auditory form.
 ## HTTP Request Shape
 I'll try to add more configuration for this later on in the form of customizable
 HTTP requests
+
+Credits go to [Audio Recorder Polyfill] for the MediaRecorder Polyfill,
+[Vue Audio Recorder] for the mixin inspiration and [Vue2 Webpack 4 Boilerplate]
+for the boilerplate.
+
+
+[Audio Recorder Polyfill]: https://github.com/ai/audio-recorder-polyfill
+[Vue Audio Recorder]: https://github.com/grishkovelli/vue-audio-recorder
+[Vue2 Webpack 4 Boilerplate]: [https://github.com/samteb/vue-2-webpack-4-boilerplate]
