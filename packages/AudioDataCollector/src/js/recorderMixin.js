@@ -3,7 +3,6 @@ import { recorderOptions, maxTakeLength } from '@/config'
 export default {
 	data() {
 		return {
-			hasPermission: false,
 			isRecording: false,
 			chunks: [],
 			currentBlob: null,
@@ -18,6 +17,10 @@ export default {
 				audio: true
 			})
 			return stream
+		},
+		setObjectUrl (blob) {
+			this.currentURL = URL.createObjectURL(blob)
+			this.$emit('urlChanged', this.currentURL)
 		},
 		createRecorder() {
 			if (!this.$_stream) return
@@ -44,8 +47,8 @@ export default {
 					if (this.timer) clearTimeout(this.timer)
 					this.timer = null
 					this.isRecording = false
-					this.currentBlob = new Blob(this.chunks)
-					this.currentURL = URL.createObjectURL(this.currentBlob)
+					this.currentBlob = new Blob(this.chunks, {type: recorderOptions.mimeType})
+					this.currentURL = this.setObjectUrl(this.currentBlob)
 					this.chunks = []
 				},
 				true

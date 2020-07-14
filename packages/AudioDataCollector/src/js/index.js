@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import '@babel/polyfill'
-import router from '@/router'
+import router from '@/js/router'
+import store from '@/js/store'
 import App from '@/components/App'
-// import AudioRecorder from 'vue-audio-recorder'
-
-// Vue.use(AudioRecorder)
 
 const app = new Vue({
 	router,
+	store,
 	components: { App },
 	render: h => h(App),
 }).$mount('#app')

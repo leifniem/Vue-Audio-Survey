@@ -9,6 +9,7 @@ module.exports = {
 	allowRetakes: true,
 	retakeText: 'Record another take',
 	nextPageText: 'Proceed →',
+	finishText: 'Complete Survey ✔',
 	subtitle: 'Survey to train hoomans to obey',
 	introduction: `
 		In this app you'll be asked to record a few samples of your voice in order to train cats to listen to humans.

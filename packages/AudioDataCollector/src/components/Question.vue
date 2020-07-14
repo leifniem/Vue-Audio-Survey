@@ -7,10 +7,15 @@
 			<p>
 				{{ this.questions[index].text }}
 			</p>
-			<Recorder :id="index" />
+			<Recorder
+				:index="index"
+				:id="id"
+				ref="audiorecorder"
+				@urlChanged="setRecordUrl"
+			/>
 		</div>
 		<router-link :to="nextPage" tabindex="-1">
-			<button tabindex="0">
+			<button tabindex="0" :disabled="blockProceed">
 				{{ buttonText }}
 			</button>
 		</router-link>
@@ -20,7 +25,7 @@
 <script>
 import questions from '@/questions.json'
 import Recorder from '@/components/Recorder'
-import { nextPageText } from '@/config.js'
+import { nextPageText, finishText } from '@/config.js'
 
 export default {
 	name: 'Question',
@@ -31,23 +36,39 @@ export default {
 			questions,
 		}
 	},
+	methods: {
+		setRecordUrl(e) {
+			console.log("Question: ", this.id, e)
+			this.$store.commit('setRecordForQuestion', {
+				id: this.id,
+				url: e
+			})
+		},
+	},
 	computed: {
 		nextPage() {
 			return this.index < questions.length - 1
-				? '/question/' + (parseInt(this.index) + 1).toString()
+				? '/question/' + (this.index + 1).toString()
 				: '/thanks'
 		},
 		buttonText() {
-			return this.index < questions.length - 1
-				? nextPageText
-				: 'Complete Questionnaire'
+			return this.index < questions.length - 1 ? nextPageText : finishText
+		},
+		blockProceed() {
+			if (questions[this.index].required) {
+				return this.$refs.audiorecorder.currentURL == null
+			}
+			return false
+		},
+		id() {
+			return questions[this.index].id
 		},
 	},
 }
 </script>
 
 <style lang="scss">
-@import "@/scss/variables";
+@import '@/scss/variables';
 
 .task {
 	background: $light-background;
