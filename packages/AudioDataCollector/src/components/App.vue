@@ -32,6 +32,7 @@ export default {
 
 <style lang="scss">
 @import "@/scss/variables";
+@import "@/scss/fonts";
 
 *,
 *:after,
@@ -41,10 +42,14 @@ export default {
 
 body {
 	background: $background-color;
-	font-family: "Inter", sans-serif;
 	line-height: 1.8;
 	font-size: 1rem;
 	color: $text-color;
+	font-family: $font-family;
+}
+
+@supports (font-variation-settings: normal) {
+	font-family: $font-family-variable;
 }
 
 .wrapper {
