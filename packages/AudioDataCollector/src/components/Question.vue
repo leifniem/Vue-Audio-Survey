@@ -7,12 +7,7 @@
 			<p>
 				{{ this.questions[index].text }}
 			</p>
-			<Recorder
-				:index="index"
-				:id="id"
-				ref="audiorecorder"
-				@urlChanged="setRecordUrl"
-			/>
+			<Recorder :id="id" ref="audiorecorder" />
 		</div>
 		<router-link :to="nextPage" tabindex="-1">
 			<button tabindex="0" :disabled="blockProceed">
@@ -36,19 +31,10 @@ export default {
 			questions,
 		}
 	},
-	methods: {
-		setRecordUrl(e) {
-			console.log("Question: ", this.id, e)
-			this.$store.commit('setRecordForQuestion', {
-				id: this.id,
-				url: e
-			})
-		},
-	},
 	computed: {
 		nextPage() {
 			return this.index < questions.length - 1
-				? '/question/' + (this.index + 1).toString()
+				? '/question/' + (parseInt(this.index) + 1)
 				: '/thanks'
 		},
 		buttonText() {
@@ -56,7 +42,10 @@ export default {
 		},
 		blockProceed() {
 			if (questions[this.index].required) {
-				return this.$refs.audiorecorder.currentURL == null
+				return (
+					this.$store.getters.getQuestionById(this.id).recordURL ==
+					null
+				)
 			}
 			return false
 		},

@@ -41,7 +41,7 @@ export default {
 
 body {
 	background: $background-color;
-	font-family: sans-serif;
+	font-family: "Inter", sans-serif;
 	line-height: 1.8;
 	font-size: 1rem;
 	color: $text-color;

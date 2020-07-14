@@ -5,7 +5,7 @@
 			sample-rate="16000"
 			format="wav"
 			:time=0.1
-			:filename="'time and date goes here' + id + '_' + 'session_id'"
+			:filename="'time and date goes here' + id + '_' + ''"
 			successful-upload="console.log('meow')"
 			failed-upload="console.log('sad meow')"
 			mic-failed="console.log('sad meow')"
@@ -39,7 +39,7 @@ let audioUrl
 
 export default {
 	name: 'Recorder',
-	props: ['id', 'index'],
+	props: ['id'],
 	mixins: [RecorderMixin],
 	methods: {
 		/*
@@ -50,15 +50,14 @@ export default {
 				this.stopRecording()
 			} else {
 				this.startRecording()
+				this.$store.commit('setRecordForQuestion', {
+					id: this.id,
+					recordURL: null,
+				})
 			}
 		},
 	},
 	computed: {
-		playerUrl() {
-			this.$state.store.questions[id].recordUrl
-			? this.$state.store.questions[id].recordUrl
-			: this.currentURL
-		},
 		buttonText() {
 			if (this.isRecording) {
 				return stopRecordingText
@@ -72,6 +71,19 @@ export default {
 				return startRecordingText
 			}
 		},
+	},
+	watch: {
+		currentURL(val) {
+			if (this.$store.getters.getQuestionById(this.id).recordURL != val) {
+			this.$store.commit('setRecordForQuestion', {
+				id: this.id,
+				recordURL: val,
+			})}
+		},
+		id (val) {
+			this.currentBlob = null
+			this.currentURL = this.$store.getters.getQuestionById(val).recordURL
+		}
 	},
 }
 </script>
