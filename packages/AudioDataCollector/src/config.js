@@ -6,6 +6,8 @@ module.exports = {
 	individualApiEndpoints: false,
 	startRecordingText: 'Start Recording',
 	stopRecordingText: 'Stop Recording',
+	allowRetakes: true,
+	retakeText: 'Record another take',
 	nextPageText: 'Proceed →',
 	subtitle: 'Survey to train hoomans to obey',
 	introduction: `

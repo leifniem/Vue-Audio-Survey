@@ -15,8 +15,7 @@ export default {
 	methods: {
 		async getStream() {
 			const stream = await navigator.mediaDevices.getUserMedia({
-				audio: true,
-				video: false,
+				audio: true
 			})
 			return stream
 		},
@@ -27,7 +26,7 @@ export default {
 			this.$_recorder.addEventListener('start', () => {
 				this.isRecording = true
 				if (maxTakeLength && maxTakeLength > 0) {
-					this.timer = setTimeout(this.$_recorder.stop, maxTakeLength)
+					this.timer = setTimeout(() => this.$_recorder.stop(), maxTakeLength)
 				}
 				console.log('Started recording')
 			})

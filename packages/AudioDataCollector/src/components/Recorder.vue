@@ -5,17 +5,16 @@
 			sample-rate="16000"
 			format="wav"
 			:time=0.1
-		/> -->
-	<!-- :filename="'time and date goes here' + id + '_' + 'session_id'"
+			:filename="'time and date goes here' + id + '_' + 'session_id'"
 			successful-upload="console.log('meow')"
 			failed-upload="console.log('sad meow')"
 			mic-failed="console.log('sad meow')"
 			upload-url="" -->
 	<div>
-		<audio id="player" :src="currentURL"></audio>
 		<div class="recorder">
-			<button class="record" @click="switchRecordingState">
-				{{ isRecording ? stopRecordingText : startRecordingText }}
+			<audio id="player" :src="currentURL" controls></audio>
+			<button class="record-button" @click="switchRecordingState">
+				{{ buttonText }}
 			</button>
 			<div :class="{ 'record-dot': true, animating: isRecording }"></div>
 		</div>
@@ -26,8 +25,10 @@
 import {
 	maxTakeLength,
 	recorderOptions,
+	allowRetakes,
 	startRecordingText,
 	stopRecordingText,
+	retakeText,
 } from '@/config.js'
 import RecorderMixin from '@/js/recorderMixin'
 
@@ -39,12 +40,6 @@ let audioUrl
 export default {
 	name: 'Recorder',
 	props: ['id'],
-	data() {
-		return {
-			startRecordingText,
-			stopRecordingText
-		}
-	},
 	mixins: [RecorderMixin],
 	methods: {
 		/*
@@ -54,16 +49,35 @@ export default {
 			this.isRecording ? this.stopRecording() : this.startRecording()
 		},
 	},
+	computed: {
+		buttonText () {
+			if (this.isRecording) {
+				return stopRecordingText
+			} else if (!this.isRecording && this.currentURL != null && allowRetakes) {
+				return retakeText
+			} else {
+				return startRecordingText
+			}
+		}
+	}
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .recorder {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+	display: grid;
+	grid-gap: 1rem;
+	width: 100%;
+	grid-template-columns: 1fr 3fr 1fr;
+	grid-template-areas:
+		'x player y'
+		'z button dot';
 	justify-content: center;
-	padding-left: 1.5rem;
+	align-items: center;
+}
+
+#player {
+	grid-area: player;
 }
 
 @keyframes pulse {
@@ -76,7 +90,12 @@ export default {
 	}
 }
 
+.record-button {
+	grid-area: button;
+}
+
 .record-dot {
+	grid-area: dot;
 	&:after {
 		width: 1rem;
 		height: 1rem;
