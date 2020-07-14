@@ -34,7 +34,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "@/scss/variables";
+
 input,
 label {
 	cursor: pointer;
@@ -43,7 +45,7 @@ label {
 .accept {
 	margin: 2rem 0;
 	padding: 1rem;
-	background: #eee;
+	background: $light-background;
 	border-radius: 5px;
 }
 

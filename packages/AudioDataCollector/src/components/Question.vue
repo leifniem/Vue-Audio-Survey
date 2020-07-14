@@ -7,10 +7,10 @@
 			<p>
 				{{ this.questions[index].text }}
 			</p>
-			<Recorder :id="index" class="recorder" />
+			<Recorder :id="index" />
 		</div>
-		<router-link :to="nextPage">
-			<button>
+		<router-link :to="nextPage" tabindex="-1">
+			<button tabindex="0">
 				{{ buttonText }}
 			</button>
 		</router-link>
@@ -20,6 +20,7 @@
 <script>
 import questions from '@/questions.json'
 import Recorder from '@/components/Recorder'
+import { nextPageText } from '@/config.js'
 
 export default {
 	name: 'Question',
@@ -38,16 +39,18 @@ export default {
 		},
 		buttonText() {
 			return this.index < questions.length - 1
-				? 'Skip Question'
+				? nextPageText
 				: 'Complete Questionnaire'
 		},
 	},
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "@/scss/variables";
+
 .task {
-	background: var(--light-background);
+	background: $light-background;
 	padding: 1rem 2rem 2rem;
 	margin-bottom: 2rem;
 	border-radius: 5px;

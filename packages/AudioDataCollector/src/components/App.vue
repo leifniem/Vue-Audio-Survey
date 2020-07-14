@@ -31,24 +31,20 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/scss/variables";
+
 *,
 *:after,
 *:before {
 	box-sizing: border-box;
-	--background: #ffffff;
-	--light-background: #edf0f1;
-	--primary-color: #4b95b4;
-	--primary-dark: #2d597c;
-	--text-color: #2a2d2e;
-	--button-text-color: #ffffff;
 }
 
 body {
-	background: var(--background);
+	background: $background-color;
 	font-family: sans-serif;
 	line-height: 1.8;
 	font-size: 1rem;
-	color: var(--text-color);
+	color: $text-color;
 }
 
 .wrapper {
@@ -84,7 +80,7 @@ body {
 	}
 
 	h1 {
-		color: var(--primary-color);
+		color: $primary-color;
 	}
 
 	h2 {
@@ -101,28 +97,32 @@ article {
 	h5,
 	h6,
 	a {
-		color: var(--primary-color);
+		color: $primary-color;
 	}
 }
 
 button {
-	background: var(--primary-color);
-	padding: .75rem;
+	background: $primary-color;
+	padding: 0.75rem;
 	border-radius: 5px;
 	font-weight: bold;
-	color: var(--button-text-color);
+	color: $button-text-color;
 	border: none;
 
 	&:not(:disabled):hover {
-		box-shadow: inset 0 3px 0 var(--primary-dark);
+		box-shadow: inset 0 3px 0 $primary-dark;
 	}
 
 	&:active {
-		background:var(--primary-dark);
+		background: $primary-dark;
+	}
+
+	&:focus {
+		background: mix($primary-color, $primary-dark, 50%);
 	}
 
 	&:disabled {
-		background: #ddd;
+		background: $light-background;
 		color: #bbb;
 	}
 }
