@@ -39,27 +39,40 @@ let audioUrl
 
 export default {
 	name: 'Recorder',
-	props: ['id'],
+	props: ['id', 'index'],
 	mixins: [RecorderMixin],
 	methods: {
 		/*
 			Method to initiate recording the current Question
 		*/
 		switchRecordingState() {
-			this.isRecording ? this.stopRecording() : this.startRecording()
+			if (this.isRecording) {
+				this.stopRecording()
+			} else {
+				this.startRecording()
+			}
 		},
 	},
 	computed: {
-		buttonText () {
+		playerUrl() {
+			this.$state.store.questions[id].recordUrl
+			? this.$state.store.questions[id].recordUrl
+			: this.currentURL
+		},
+		buttonText() {
 			if (this.isRecording) {
 				return stopRecordingText
-			} else if (!this.isRecording && this.currentURL != null && allowRetakes) {
+			} else if (
+				!this.isRecording &&
+				this.currentURL != null &&
+				allowRetakes
+			) {
 				return retakeText
 			} else {
 				return startRecordingText
 			}
-		}
-	}
+		},
+	},
 }
 </script>
 
