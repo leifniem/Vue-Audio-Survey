@@ -41,6 +41,11 @@ export default {
 	name: 'Recorder',
 	props: ['id'],
 	mixins: [RecorderMixin],
+	data () {
+		return {
+			currentURL: this.$store.getters.getQuestionById(this.id).recordURL
+		}
+	},
 	methods: {
 		/*
 			Method to initiate recording the current Question
