@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 import questions from '@/questions.json'
 
 Vue.use(Vuex)
@@ -27,7 +28,7 @@ export default new Vuex.Store({
 		getCompletedQuestions(state) {
 			return Object.keys(state.questions).filter(
 				(q) => state.questions[q].recordURL != null
-			).length
+				).length
 		},
 		getPercentComplete(state, getters) {
 			return (
@@ -35,4 +36,5 @@ export default new Vuex.Store({
 			)
 		},
 	},
+	plugins: [createPersistedState()],
 })
