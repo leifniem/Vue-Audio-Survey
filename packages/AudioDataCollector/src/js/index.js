@@ -3,6 +3,9 @@ import '@babel/polyfill'
 import router from '@/js/router'
 import store from '@/js/store'
 import App from '@/components/App'
+import AudioRecorder from 'audio-recorder-polyfill'
+
+window.MediaRecorder = AudioRecorder
 
 const app = new Vue({
 	router,

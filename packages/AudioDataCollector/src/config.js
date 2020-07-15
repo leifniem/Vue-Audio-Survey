@@ -14,6 +14,7 @@ module.exports = {
 	instructions: require('./assets/instructions'),
 	privacyPolicy: require('./assets/privacyPolicy'),
 	privacyAcknowledgement: 'I fully understand Privacy Policy above and acknowledge it.',
+	metaData: require('./assets/metaData'),
 	maxTakeLength: 5000,
 	/*
 		Please see to https://github.com/ai/audio-recorder-polyfill for possible config
