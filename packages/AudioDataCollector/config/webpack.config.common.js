@@ -8,14 +8,13 @@ const isDev                = process.env.NODE_ENV === 'development';
 
 const webpackConfig = {
     entry: {
-        polyfill: helpers.root('src', 'js/polyfill'),
+        // polyfill: helpers.root('src', 'js/polyfill'),
         main: helpers.root('src', 'js/index'),
     },
     resolve: {
         extensions: [ '.js', '.vue' ],
         alias: {
             'vue$': isDev ? 'vue/dist/vue.runtime.js' : 'vue/dist/vue.runtime.min.js',
-            // 'vue': 'vue/dist/vue.esm.js',
             '@': helpers.root('src')
         }
     },

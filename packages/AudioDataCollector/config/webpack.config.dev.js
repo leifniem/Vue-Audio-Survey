@@ -30,7 +30,8 @@ const webpackConfig = merge(commonConfig, {
         historyApiFallback: true,
         hot: true,
         open: true,
-        overlay: true,
+				overlay: true,
+				host: '0.0.0.0',
         port: 1337,
         stats: {
             normal: true

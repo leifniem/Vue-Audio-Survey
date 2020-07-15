@@ -6,7 +6,7 @@
 			<input type="checkbox" id="privacy-accept" v-model="checked" />
 			<label for="privacy-accept">{{ privacyAcknowledgement }}</label>
 		</div>
-		<router-link to="/question/0">
+		<router-link to="/metadata">
 			<button :disabled="!checked">
 				{{ nextPageText }}
 			</button>

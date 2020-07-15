@@ -1,11 +1,15 @@
 <template>
 	<div id="app">
 		<header class="wrapper site-header">
-			<div class="logo">
-				<img :src="logo.default" alt="" />
-			</div>
+			<router-link to="/">
+				<div class="logo">
+					<img :src="logo.default" alt="" />
+				</div>
+			</router-link>
 			<div class="title">
-				<h1 v-if="title">{{ title }}</h1>
+				<router-link to="/">
+					<h1 v-if="title">{{ title }}</h1>
+				</router-link>
 				<h2 v-if="subtitle">{{ subtitle }}</h2>
 			</div>
 		</header>
@@ -31,8 +35,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/scss/variables";
-@import "@/scss/fonts";
+@import '@/scss/variables';
+@import '@/scss/fonts';
 
 *,
 *:after,
@@ -65,6 +69,10 @@ body {
 	grid-template-areas: 'logo title title';
 	grid-gap: 1rem;
 	align-items: center;
+
+	a {
+		text-decoration: none;
+	}
 }
 
 .logo {
@@ -106,7 +114,8 @@ article {
 	}
 }
 
-button {
+button,
+input[type="submit"] {
 	background: $primary-color;
 	padding: 0.75rem;
 	border-radius: 5px;
