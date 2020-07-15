@@ -61,7 +61,7 @@ const webpackConfig = merge(commonConfig, {
         new CompressionPlugin({
             filename: '[path].gz[query]',
             algorithm: 'gzip',
-            test: new RegExp('\\.(js|css)$'),
+            test: new RegExp('\\.(js|css|woff|woff2)$'),
             threshold: 10240,
             minRatio: 0.8
         }),
