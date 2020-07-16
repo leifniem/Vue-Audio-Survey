@@ -8,7 +8,6 @@ const isDev                = process.env.NODE_ENV === 'development';
 
 const webpackConfig = {
     entry: {
-        // polyfill: helpers.root('src', 'js/polyfill'),
         main: helpers.root('src', 'js/index'),
     },
     resolve: {

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { metaData } from "@/config";
+import { metaData } from '@/config'
 
 for (let metaKey in metaData) {
 	metaData[metaKey].error = ''
@@ -27,7 +27,7 @@ export default {
 	name: 'Metadata',
 	data() {
 		return {
-			metaData
+			metaData,
 		}
 	},
 	methods: {
@@ -43,7 +43,11 @@ export default {
 			}
 
 			if (!errors) {
-				this.$router.push('/question/0/')
+				let finalMeta = {}
+				for (let meta of this.metaData) {
+					finalMeta[meta.id] = this.$refs[meta.id.toString()][0].value
+				}
+				this.$store.dispatch('writeMetaData', finalMeta)
 			}
 		},
 	},
