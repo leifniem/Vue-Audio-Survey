@@ -13,7 +13,11 @@
 	<div>
 		<div class="recorder">
 			<audio id="player" :src="currentURL" controls></audio>
-			<button class="record-button" @click="switchRecordingState" :disabled="blockRecording">
+			<button
+				class="record-button"
+				@click="switchRecordingState"
+				:disabled="blockRecording"
+			>
 				{{ buttonText }}
 			</button>
 			<div :class="{ 'record-dot': true, animating: isRecording }"></div>
@@ -41,9 +45,9 @@ export default {
 	name: 'Recorder',
 	props: ['id'],
 	mixins: [RecorderMixin],
-	data () {
+	data() {
 		return {
-			currentURL: this.$store.getters.getQuestionById(this.id).recordURL
+			currentURL: this.$store.getters.getQuestionById(this.id).recordURL,
 		}
 	},
 	methods: {
@@ -58,6 +62,7 @@ export default {
 				this.$store.commit('setRecordForQuestion', {
 					id: this.id,
 					recordURL: null,
+					blob: null,
 				})
 			}
 		},
@@ -76,22 +81,27 @@ export default {
 				return startRecordingText
 			}
 		},
-		blockRecording () {
+		blockRecording() {
 			return !allowRetakes && this.currentURL !== null
-		}
+		},
 	},
 	watch: {
 		currentURL(val) {
-			if (this.$store.getters.getQuestionById(this.id).recordURL !== val) {
-			this.$store.commit('setRecordForQuestion', {
-				id: this.id,
-				recordURL: val,
-			})}
+			if (
+				this.$store.getters.getQuestionById(this.id).recordURL !== val
+			) {
+				this.$store.dispatch('writeAudio', {
+					id: this.id,
+					recordURL: val,
+					blob: currentBlob,
+					index: this.index,
+				})
+			}
 		},
-		id (val) {
+		id(val) {
 			this.currentBlob = null
 			this.currentURL = this.$store.getters.getQuestionById(val).recordURL
-		}
+		},
 	},
 }
 </script>
