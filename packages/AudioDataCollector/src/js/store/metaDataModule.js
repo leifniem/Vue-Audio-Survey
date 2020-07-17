@@ -12,12 +12,12 @@ export default {
 		metaData: meta,
 	},
 	actions: {
-		writeMetaData (context, data) {
+		async writeMetaData (context, data) {
 			var m = new Date();
 			data.dateTime = `${m.getUTCFullYear()}-(${m.getUTCMonth()})-${m.getUTCDate()} ${m.getUTCHours()}:${m.getUTCMinutes()}`
 			try {
 				context.commit('setMetaData', data)
-				let res = MetaDataService.putMeta(data)
+				let res = await MetaDataService.putMeta(data)
 				console.log(res);
 				if (res.status === 200) Router.push('/microphone')
 			} catch (e) {
