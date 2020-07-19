@@ -1,7 +1,7 @@
 'use strict';
 
 const webpack              = require('webpack');
-const merge                = require('webpack-merge');
+const merge                = require('webpack-merge').merge;
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const helpers              = require('./helpers');
 const commonConfig         = require('./webpack.config.common');

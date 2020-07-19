@@ -7,7 +7,7 @@
 			<p>
 				{{ this.questions[index].text }}
 			</p>
-			<Recorder :id="id" ref="audiorecorder" />
+			<Recorder :id="id" :index="index" ref="audiorecorder" />
 		</div>
 		<router-link :to="nextPage" tabindex="-1">
 			<button tabindex="0" :disabled="blockProceed">

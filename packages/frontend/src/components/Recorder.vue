@@ -43,7 +43,7 @@ let audioUrl
 
 export default {
 	name: 'Recorder',
-	props: ['id'],
+	props: ['id', 'index'],
 	mixins: [RecorderMixin],
 	data() {
 		return {
@@ -93,7 +93,7 @@ export default {
 				this.$store.dispatch('writeAudio', {
 					id: this.id,
 					recordURL: val,
-					blob: currentBlob,
+					blob: this.currentBlob,
 					index: this.index,
 				})
 			}

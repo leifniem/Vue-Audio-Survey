@@ -1,6 +1,6 @@
 <template>
 	<div class="meta-collection">
-		<form class="task" @submit="metaSubmit">
+		<form class="task" @submit.prevent="metaSubmit">
 			<div v-for="meta of metaData" :key="meta.id" class="meta-input">
 				<label :for="meta.id">{{
 					meta.name + (meta.required ? '*' : '')
@@ -11,7 +11,7 @@
 			<p class="footnote">Fields annotated with a * are non-optional.</p>
 			<input type="submit" content="Submit form" hidden>
 		</form>
-		<button @click="metaSubmit">
+		<button @click="metaSubmit" type="submit">
 			Submit
 		</button>
 	</div>
@@ -48,8 +48,12 @@ export default {
 				for (let meta of this.metaData) {
 					finalMeta[meta.id] = this.$refs[meta.id.toString()][0].value
 				}
-				this.$store.dispatch('writeMetaData', finalMeta)
-				this.$router.push('/microphone')
+				try {
+					this.$store.dispatch('writeMetaData', finalMeta)
+					this.$router.push('/microphone')
+				} catch (error) {
+
+				}
 			}
 		},
 	},

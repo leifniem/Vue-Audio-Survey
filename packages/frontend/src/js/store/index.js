@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import QuestionsModule from './questionsModule'
 import MetaDataModule from './metaDataModule'
-import SessionModule from './sessionModule'
 
 Vue.use(Vuex)
 
@@ -11,9 +10,21 @@ const store = new Vuex.Store({
 	modules: {
 		QuestionsModule,
 		MetaDataModule,
-		SessionModule,
 	},
 	plugins: [createPersistedState()],
+	state: {
+		privacyPolicyAccepted: false
+	},
+	mutations: {
+		setPrivacyAcknowledgement (state, accepted) {
+			state.privacyPolicyAccepted = accepted
+		}
+	},
+	getters: {
+		getPrivacyAcknowledgement (state) {
+			return state.privacyPolicyAccepted
+		}
+	}
 })
 
 export default store

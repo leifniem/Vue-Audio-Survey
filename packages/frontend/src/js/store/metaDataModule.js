@@ -11,19 +11,38 @@ let meta = Object.keys(metaData).reduce((obj, key) => {
 export default {
 	state: {
 		metaData: meta,
+		sessionID: null,
 	},
 	actions: {
-		async writeMetaData(context, data) {
+		async createSessionID({commit}, metadata) {
+			const idString = `${metadata.dateTime.replace(' ', '_')}_${
+				metadata.lastName
+			}_${metadata.firstName}`
+			commit('setSessionID', idString)
+		},
+		async writeMetaData({commit, dispatch, getters}, data) {
 			var m = new Date()
 			data.dateTime = `${m
 				.toISOString()
 				.replace('T', '_')
 				.replace(/:/g, '-')
 				.slice(0, -5)}`
+			await dispatch('createSessionID', data)
+			data.sessionID = getters.getSessionID
 			try {
-				context.commit('setMetaData', data)
+				commit('setMetaData', data)
 				let res = await MetaDataService.putMeta(data)
-				if (res) setToken(res.token)
+				if (res.token) {
+					setToken(res.token)
+					return
+				} else if (typeof res === Number) {
+					// TODO Handle HTTP errors
+					throw new Error(
+						'Your request was rejected with the code ' + res
+					)
+				} else {
+					throw new Error('You were not authorized to upload data')
+				}
 			} catch (e) {
 				// TODO Error Handling on failed upload
 				console.error(e)
@@ -34,10 +53,16 @@ export default {
 		setMetaData(state, data) {
 			state.metaData = data
 		},
+		setSessionID(state, idString) {
+			state.sessionID = idString
+		},
 	},
 	getters: {
 		getMeta(state) {
 			return state.metaData
+		},
+		getSessionID(state) {
+			return state.sessionID
 		},
 	},
 }

@@ -20,11 +20,15 @@ module.exports = [
 		errorMessage: 'Last Name does not match criteria.',
 	},
 	{
-		id: 'age',
-		name: 'Age',
-		type: 'number',
+		id: 'dateOfBirth',
+		name: 'Date of birth',
+		type: 'date',
 		required: true,
-		validator: (x) => x >= 18 && x <= 120,
+		validator: (x) => {
+			let value = new Date(x)
+			let now = new Date()
+			return now - value >= 5.676e+11 && now - value <= 3.154e+12
+		},
 		errorMessage: 'Age does not match criteria.',
 	},
 	{

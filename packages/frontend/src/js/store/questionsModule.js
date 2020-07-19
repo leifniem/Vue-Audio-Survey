@@ -1,4 +1,6 @@
 import questions from '@/questions.json'
+import QuestionsService from '@/services/questionsService'
+
 let quest = questions.reduce((obj, item) => {
 	obj[item.id] = { id: item.id, recordURL: null, blob: null, uploaded: false }
 	return obj
@@ -13,7 +15,6 @@ export default {
 		setRecordForQuestion(state, data) {
 			state.questions[data.id].recordURL = data.recordURL
 			state.questions[data.id].blob = data.blob
-
 		},
 		setSuccessfulIndex(state, index) {
 			state.successfullyCompleted = index
@@ -23,10 +24,11 @@ export default {
 		async writeAudio(context, data) {
 			context.commit('setRecordForQuestion', data)
 			try {
-				let res = await QuestionsService.uploadAudio(
-					data.blob,
-					this.$store.getters.getAuthToken()
-				)
+				let res = await QuestionsService.uploadAudio({
+					audio: data.blob,
+					filename: `${context.getters.getSessionID}_${data.id}`,
+					foldername: `${context.getters.getSessionID}`
+				})
 				context.commit('setRecordForQuestion', data)
 				context.successfullyCompleted = data.index
 			} catch (e) {

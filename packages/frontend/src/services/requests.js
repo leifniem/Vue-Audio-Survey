@@ -13,6 +13,7 @@ export default {
 				headers,
 				body: JSON.stringify(data),
 			})
+			if (res.status > 299) return res.status
 			const resParse = await res.json()
 			return resParse
 		} catch (error) {
@@ -25,7 +26,7 @@ export default {
 		for (let key in data) {
 			formData.append(key, data[key])
 		}
-		headers = {}
+		let headers = {}
 		if (getToken() != null) headers['Authorization'] = 'Bearer ' + getToken()
 		try {
 			const res = await fetch(`${apiURL}/${endpoint}`, {
