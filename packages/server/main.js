@@ -3,6 +3,8 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const multer = require('multer')
+const compression = require('compression')
+const helmet = require('helmet')
 
 // Server constants
 const portNumber = 9000
@@ -97,11 +99,13 @@ const upload = multer({
 // A multer function that processes the file given in the requests 'audio' field
 const audioUpload = upload.single('audio')
 
-// Initialize server and add parsers / cors module
+// Initialize server and add parsers / cors module / gzip compression / logging
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
+app.use(compression())
+app.use(helmet())
 
 /*
 	The meta route listens for Metadata requests, verifies them and generates a

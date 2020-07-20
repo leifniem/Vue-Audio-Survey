@@ -45,13 +45,13 @@ audio: Blob / File
 
 ## Security
 In terms of security you need to add your own salt to the soup.
-By default the server generates JWT Bearer Tokens by the metadata sent by
-the client, which might be enough for you if using HTTPS (please do so).
+By default the server generates JWT Bearer Token by the metadata sent by
+the client, which might be enough for you if using `HTTPS` (please do so).
 
-Also registered users are currently stored in a plain JSON file, which you
-should NEVER EVER do in production, but i did not want to add a database to
-this project, since that usually tends to be a matter of technology preference
-for everyone.
+Also registered users are currently stored in a plain `JSON` file, which you
+should **NEVER EVER** do in a public production server, but i did not want to
+add a database to this project, since that usually tends to be a matter of
+technology preference for everyone.
 
 ## Error Handling
 The frontend is configured to show every Error in an `alert` window, which is a
