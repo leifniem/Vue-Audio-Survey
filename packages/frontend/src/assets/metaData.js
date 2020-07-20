@@ -1,3 +1,14 @@
+/*
+	Each child of module.exports represents an input in the Metadata form as a line.
+	The properties are used as follows:
+		- id: Key in JSON requests as well as id in html
+		- name: Context of the accompanying label for input
+		- type: Attribute for the <inuput> element in the code
+		- required: Makes the input error if field is empty
+		- validator: A validation function that is called on the inputs value
+		- errorMessage: Text displayed below field if validation fails
+*/
+
 function validateName(x) {
 	return /^[A-Z][a-z]{1,}(((\s|-)[A-Za-z-]+)+)?$/.test(x)
 }

@@ -21,22 +21,24 @@ export default {
 			commit('setSessionID', idString)
 		},
 		async writeMetaData({commit, dispatch, getters}, data) {
+			// add current time to meta for sessionID / verification
 			var m = new Date()
 			data.dateTime = `${m
 				.toISOString()
 				.replace('T', '_')
 				.replace(/:/g, '-')
 				.slice(0, -5)}`
+			// Create and append sessionID
 			await dispatch('createSessionID', data)
 			data.sessionID = getters.getSessionID
 			try {
 				commit('setMetaData', data)
+				// Uploading Meta to server to receive token
 				let res = await MetaDataService.putMeta(data)
 				if (res.token) {
 					setToken(res.token)
 					return
 				} else if (typeof res === Number) {
-					// TODO Handle HTTP errors
 					throw new Error(
 						'Your request was rejected with the code ' + res
 					)
@@ -44,8 +46,7 @@ export default {
 					throw new Error('You were not authorized to upload data')
 				}
 			} catch (e) {
-				// TODO Error Handling on failed upload
-				console.error(e)
+				alert(e.msg)
 			}
 		},
 	},

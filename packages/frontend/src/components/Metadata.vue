@@ -1,6 +1,7 @@
 <template>
 	<div class="meta-collection">
 		<form class="task" @submit.prevent="metaSubmit">
+			<!-- Generate metadata inputs from the given metadata config -->
 			<div v-for="meta of metaData" :key="meta.id" class="meta-input">
 				<label :for="meta.id">{{
 					meta.name + (meta.required ? '*' : '')
@@ -20,6 +21,7 @@
 <script>
 import { metaData } from '@/config'
 
+// initialize the error field for displaying errors
 for (let metaKey in metaData) {
 	metaData[metaKey].error = ''
 }
@@ -35,6 +37,7 @@ export default {
 		metaSubmit() {
 			let errors = false
 
+			// Validate meta field with its validator function and add error if given
 			for (let meta of this.metaData) {
 				meta.error = ''
 				if (!meta.validator(this.$refs[meta.id.toString()][0].value)) {
@@ -43,6 +46,7 @@ export default {
 				}
 			}
 
+			// if there are no errors present construct the metadata state object
 			if (!errors) {
 				let finalMeta = {}
 				for (let meta of this.metaData) {
@@ -52,7 +56,7 @@ export default {
 					this.$store.dispatch('writeMetaData', finalMeta)
 					this.$router.push('/microphone')
 				} catch (error) {
-
+					alert(error.msg)
 				}
 			}
 		},

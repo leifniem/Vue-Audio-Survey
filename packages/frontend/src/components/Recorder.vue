@@ -1,15 +1,4 @@
 <template>
-	<!-- <audio-recorder
-			class="recorder"
-			bit-rate="256"
-			sample-rate="16000"
-			format="wav"
-			:time=0.1
-			:filename="'time and date goes here' + id + '_' + ''"
-			successful-upload="console.log('meow')"
-			failed-upload="console.log('sad meow')"
-			mic-failed="console.log('sad meow')"
-			upload-url="" -->
 	<div>
 		<div class="recorder">
 			<audio id="player" :src="currentURL" controls></audio>
@@ -18,7 +7,7 @@
 				@click="switchRecordingState"
 				:disabled="blockRecording"
 			>
-				{{ buttonText }}
+				{{ recordButtonText }}
 			</button>
 			<div :class="{ 'record-dot': true, animating: isRecording }"></div>
 		</div>
@@ -47,13 +36,13 @@ export default {
 	mixins: [RecorderMixin],
 	data() {
 		return {
+			// If recording exists for this question make it available
+			// (default for  currentURL is null)
 			currentURL: this.$store.getters.getQuestionById(this.id).recordURL,
 		}
 	},
 	methods: {
-		/*
-			Method to initiate recording the current Question
-		*/
+		// Method to initiate recording the current Question
 		switchRecordingState() {
 			if (this.isRecording) {
 				this.stopRecording()
@@ -68,7 +57,7 @@ export default {
 		},
 	},
 	computed: {
-		buttonText() {
+		recordButtonText() {
 			if (this.isRecording) {
 				return stopRecordingText
 			} else if (
@@ -81,11 +70,14 @@ export default {
 				return startRecordingText
 			}
 		},
+		// Block recording a new take if retakes aren't allowed and there is a take
+		// (Be aware URLs go back to null on reload, duplicates can be caught on server)
 		blockRecording() {
 			return !allowRetakes && this.currentURL !== null
 		},
 	},
 	watch: {
+		// if currentURL changes (recording is available) notify store and upload
 		currentURL(val) {
 			if (
 				this.$store.getters.getQuestionById(this.id).recordURL !== val
@@ -98,6 +90,7 @@ export default {
 				})
 			}
 		},
+		// Triggers when navigating between questions and loads potential recordings
 		id(val) {
 			this.currentBlob = null
 			this.currentURL = this.$store.getters.getQuestionById(val).recordURL

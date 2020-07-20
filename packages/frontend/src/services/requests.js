@@ -2,6 +2,7 @@ import { apiURL } from '@/config.js'
 import { getToken } from '@/js/tokenHandler'
 
 export default {
+	// sends a request with the given data and method to the API
 	async jsonRequest(endpoint, data, method) {
 		let headers = {
 			'Content-Type': 'application/json',
@@ -21,6 +22,8 @@ export default {
 			return null
 		}
 	},
+
+	// Sends a multipart formdata request (file upload + extras)
 	async multipartFormDataRequest(endpoint, data) {
 		let formData = new FormData()
 		for (let key in data) {
@@ -34,6 +37,10 @@ export default {
 				method: 'POST',
 				body: formData,
 			})
-		} catch (error) {}
+			return res
+		} catch (error) {
+			alert('There was an issue uploading your file')
+			return null
+		}
 	},
 }

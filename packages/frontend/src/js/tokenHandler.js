@@ -1,6 +1,8 @@
+import {tokenLocalStorageName} from '@/config.js'
+
 export function getToken() {
-		return localStorage.getItem('token')
+		return localStorage.getItem(tokenLocalStorageName)
 	}
 export function setToken(val) {
-		localStorage.setItem('token', val)
+		localStorage.setItem(tokenLocalStorageName, val)
 	}

@@ -27,7 +27,9 @@ const router = new VueRouter({
 		},
 	],
 })
-// TODO catch GDPR consent, token, last uploaded question
+
+// Add navigation guards to protect routes that should only be accessible with
+// a token and / or accepted privacy policy
 router.beforeEach((to, from, next) => {
 	const publicRoutes = ['/', '/404', '/privacy', '/metadata']
 	const privacyRoutes = ['/', '/404', '/privacy']

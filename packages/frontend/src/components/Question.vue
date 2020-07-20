@@ -1,14 +1,18 @@
 <template>
 	<div :class="'question question-' + index">
 		<h3>
-			This is Question {{ parseInt(index) + 1 }} of {{ questions.length }}
+			This is Question {{ index }} of {{ questions.length }}
 		</h3>
 		<div class="task">
 			<p>
-				{{ this.questions[index].text }}
+				{{ this.questions[index-1].text }}
 			</p>
-			<Recorder :id="id" :index="index" ref="audiorecorder" />
+			<Recorder :id="id" :index="index - 1" ref="audiorecorder" />
 		</div>
+		<!--
+			Router link removed from tabindex because button triggers it and is
+			visible
+		-->
 		<router-link :to="nextPage" tabindex="-1">
 			<button tabindex="0" :disabled="blockProceed">
 				{{ buttonText }}
@@ -24,6 +28,8 @@ import { nextPageText, finishText } from '@/config.js'
 
 export default {
 	name: 'Question',
+	// index is starts at 1 as it is the visual indicator,
+	// please pay attention
 	props: ['index'],
 	components: { Recorder },
 	data() {
@@ -33,15 +39,16 @@ export default {
 	},
 	computed: {
 		nextPage() {
-			return this.index < questions.length - 1
+			return this.index < questions.length
 				? '/question/' + (parseInt(this.index) + 1)
 				: '/thanks'
 		},
 		buttonText() {
-			return this.index < questions.length - 1 ? nextPageText : finishText
+			return this.index < questions.length ? nextPageText : finishText
 		},
+		// disable navigation to next page if there is no audio recording
 		blockProceed() {
-			if (questions[this.index].required) {
+			if (questions[this.index - 1].required) {
 				return (
 					this.$store.getters.getQuestionById(this.id).recordURL ==
 					null
@@ -49,8 +56,9 @@ export default {
 			}
 			return false
 		},
+		// id of the current question
 		id() {
-			return questions[this.index].id
+			return questions[this.index - 1].id
 		},
 	},
 }

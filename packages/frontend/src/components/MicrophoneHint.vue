@@ -9,7 +9,7 @@
 			make sure that your browser overall has access to your audio device.
 			Thank you.
 		</p>
-		<router-link to="/question/0">
+		<router-link to="/question/1">
 			<button>
 				{{ nextPageText }}
 			</button>

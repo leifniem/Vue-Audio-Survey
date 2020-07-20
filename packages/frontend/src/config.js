@@ -1,8 +1,8 @@
 module.exports = {
-	sharedSecretKey: 'm1uqfiDG.!KcgS%;E+QSrY%2+:m+6V',
 	title: 'Curious Cat Inc.',
 	logo: require('./img/logo.svg'),
 	apiURL: 'http://0.0.0.0:9000',
+	tokenLocalStorageName: 'miceAreATokenOfAppreciation',
 	individualApiEndpoints: false,
 	startRecordingText: 'Start Recording',
 	stopRecordingText: 'Stop Recording',

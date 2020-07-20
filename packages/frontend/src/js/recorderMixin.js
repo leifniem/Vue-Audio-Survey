@@ -12,6 +12,7 @@ export default {
 	},
 
 	methods: {
+		// get AudioStream from Browser API
 		async getStream() {
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: true,
@@ -19,6 +20,7 @@ export default {
 			})
 			return stream
 		},
+		// Fires when recording is stopped
 		processStoppedRecording() {
 			if (this.timer) clearTimeout(this.timer)
 			this.timer = null
@@ -29,6 +31,7 @@ export default {
 			this.currentURL = URL.createObjectURL(this.currentBlob)
 			this.chunks = []
 		},
+		// Initializes a MediaRecorder if a stream exists
 		createRecorder() {
 			if (!this.$_stream) return
 			this.$_recorder = new MediaRecorder(this.$_stream, recorderOptions)

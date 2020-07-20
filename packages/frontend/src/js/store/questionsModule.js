@@ -9,7 +9,7 @@ let quest = questions.reduce((obj, item) => {
 export default {
 	state: {
 		questions: quest,
-		successfullyCompleted: 0,
+		successfullyCompletedQuestionIndex: 0,
 	},
 	mutations: {
 		setRecordForQuestion(state, data) {
@@ -17,23 +17,27 @@ export default {
 			state.questions[data.id].blob = data.blob
 		},
 		setSuccessfulIndex(state, index) {
-			state.successfullyCompleted = index
+			state.successfullyCompletedQuestionIndex = index
 		},
 	},
 	actions: {
 		async writeAudio(context, data) {
 			context.commit('setRecordForQuestion', data)
 			try {
+				// upload given recording to server
 				let res = await QuestionsService.uploadAudio({
-					audio: data.blob,
 					filename: `${context.getters.getSessionID}_${data.id}`,
-					foldername: `${context.getters.getSessionID}`
+					foldername: `${context.getters.getSessionID}`,
+					audio: data.blob,
 				})
-				context.commit('setRecordForQuestion', data)
-				context.successfullyCompleted = data.index
+				if (res.status === 200) {
+					context.commit('setRecordForQuestion', data)
+					context.commit('setSuccessfulIndex', parseInt(data.index) + 1)
+				} else {
+					throw new Error('File upload unsuccessful')
+				}
 			} catch (e) {
-				// TODO Handle upload errors
-				console.error(e)
+				alert(e.msg)
 			}
 		},
 	},
@@ -43,9 +47,7 @@ export default {
 			return Object.keys(state.questions).length
 		},
 		getCompletedQuestions(state) {
-			return Object.keys(state.questions).filter(
-				(q) => state.questions[q].recordURL != null
-			).length
+			return state.successfullyCompletedQuestionIndex
 		},
 		getPercentComplete(state, getters) {
 			return (

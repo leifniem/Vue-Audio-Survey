@@ -5,6 +5,7 @@ import store from '@/js/store/index'
 import App from '@/components/App'
 import AudioRecorder from 'audio-recorder-polyfill'
 
+// Add MediaRecorder polyfill
 window.MediaRecorder = AudioRecorder
 
 const app = new Vue({

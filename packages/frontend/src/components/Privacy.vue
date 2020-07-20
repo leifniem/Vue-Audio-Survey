@@ -6,6 +6,7 @@
 			<input type="checkbox" id="privacy-accept" v-model="checked" />
 			<label for="privacy-accept">{{ privacyAcknowledgement }}</label>
 		</div>
+		<!-- Button to proceed is disabled as long as checkbox is not checked -->
 		<button :disabled="!checked" @click="acceptPrivacyPolicy">
 			{{ nextPageText }}
 		</button>
