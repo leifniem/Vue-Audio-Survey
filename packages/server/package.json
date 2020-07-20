@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "An express server to accept audio survey data",
   "main": "main.js",
   "author": "Leif Niemczik",

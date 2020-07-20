@@ -1,6 +1,6 @@
 {
   "name": "audiodatacollector",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A tool for carrying out audio surveys written in Vue.js",
   "main": "index.js",
   "scripts": {
