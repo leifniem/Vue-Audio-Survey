@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import '@babel/polyfill'
 import router from '@/js/router'
 import store from '@/js/store/index'
 import App from '@/components/App'

@@ -2,7 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "dev": "lerna run dev --stream"
+    "dev": "lerna run dev --stream",
+    "build": "lerna run build"
   },
   "devDependencies": {
     "lerna": "^3.22.1"

@@ -1,35 +1,38 @@
 'use strict';
 
+const path                  	 = require('path');
 const webpack                  = require('webpack');
-const merge                    = require('webpack-merge');
+const merge                    = require('webpack-merge').merge;
 const OptimizeCSSAssetsPlugin  = require('optimize-css-assets-webpack-plugin');
 const MiniCSSExtractPlugin     = require('mini-css-extract-plugin');
-const UglifyJSPlugin           = require('uglifyjs-webpack-plugin');
 const CompressionPlugin        = require('compression-webpack-plugin');
 const helpers                  = require('./helpers');
 const commonConfig             = require('./webpack.config.common');
+const TerserPlugin 						 = require('terser-webpack-plugin')
 const isProd                   = process.env.NODE_ENV === 'production';
 
 const webpackConfig = merge(commonConfig, {
     mode: 'production',
     output: {
-        path: helpers.root('dist'),
+        path: path.resolve('../../dist_frontend'),
         publicPath: '/',
         filename: 'js/[hash].js',
-        chunkFilename: 'js/[id].[hash].chunk.js'
+        chunkFilename: 'js/[name].[hash].chunk.js'
     },
     optimization: {
-        runtimeChunk: 'single',
+				runtimeChunk: 'single',
+				minimize: true,
         minimizer: [
+						new TerserPlugin({
+							terserOptions: {
+								toplevel: true,
+								mangle: true
+							}
+						}),
             new OptimizeCSSAssetsPlugin({
                 cssProcessorPluginOptions: {
                     preset: [ 'default', { discardComments: { removeAll: true } } ],
                 }
-            }),
-            new UglifyJSPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: !isProd
             })
         ],
         splitChunks: {
