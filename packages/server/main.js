@@ -18,6 +18,7 @@ const expirationTime = '4h'
 
 // Read the file that holds users as array of Objects
 function getUsersArray() {
+	if (!fs.existsSync(userFilePath)) return []
 	return JSON.parse(fs.readFileSync(userFilePath, 'utf8'))
 }
 
