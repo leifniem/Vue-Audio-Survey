@@ -35,17 +35,9 @@ router.beforeEach((to, from, next) => {
 	const privacyRoutes = ['/', '/404', '/privacy']
 	const acknowledgementRequired = !privacyRoutes.includes(to.path)
 	const authRequired = !publicRoutes.includes(to.path)
-	if (
-		authRequired &&
-		getToken() != null &&
-		acknowledgementRequired &&
-		Store.getters.getPrivacyAcknowledgement
-	) {
-		return next()
-	} else if (
-		(authRequired && getToken() === null) ||
-		(acknowledgementRequired && !Store.getters.getPrivacyAcknowledgement)
-	) {
+	if (acknowledgementRequired && !Store.getters.getPrivacyAcknowledgement) {
+		return next('/privacy')
+	} else if (authRequired && getToken == null) {
 		return next('/')
 	} else {
 		next()
