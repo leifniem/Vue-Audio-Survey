@@ -34,7 +34,7 @@ const webpackConfig = {
 			{
 				test: /\.css$/,
 				use: [
-					isDev ? 'vue-style-loader' : MiniCSSExtractPlugin.loader,
+					isDev ? 'style-loader' : MiniCSSExtractPlugin.loader,
 					{ loader: 'css-loader', options: { sourceMap: isDev } },
 				],
 			},

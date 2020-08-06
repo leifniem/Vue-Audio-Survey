@@ -81,6 +81,7 @@ export default {
 		currentURL(val) {
 			if (
 				this.$store.getters.getQuestionById(this.id).recordURL !== val
+				&& this.$store.getters.getQuestionById(this.id).recordURL !== null
 			) {
 				this.$store.dispatch('writeAudio', {
 					id: this.id,

@@ -16,7 +16,7 @@ export default {
 		async getStream() {
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: true,
-				video: false
+				video: false,
 			})
 			return stream
 		},
@@ -30,6 +30,7 @@ export default {
 			})
 			this.currentURL = URL.createObjectURL(this.currentBlob)
 			this.chunks = []
+			console.log(this.$_stream)
 		},
 		// Initializes a MediaRecorder if a stream exists
 		createRecorder() {
@@ -59,6 +60,7 @@ export default {
 			)
 		},
 		async startRecording() {
+			// this.$_stream.getTracks().forEach((track) => track.start())
 			if (this.isRecording) return
 			try {
 				if (this.$_recorder == null) {
@@ -74,7 +76,7 @@ export default {
 		stopRecording() {
 			if (!this.isRecording) return
 			this.$_recorder.stop()
-			this.$_stream.getTracks().forEach((track) => track.stop())
+			// this.$_stream.getTracks().forEach((track) => track.stop())
 		},
 	},
 
@@ -82,7 +84,7 @@ export default {
 		try {
 			this.$_stream = await this.getStream()
 		} catch (e) {
-			console.error(e);
+			console.error(e)
 			alert(`There was an issue detecting your microphone input.
 
 Please make sure you accepted the request for microphone input and your browser is allowed to access your audio device.`)

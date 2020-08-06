@@ -13,9 +13,12 @@
 				<h2 v-if="subtitle">{{ subtitle }}</h2>
 			</div>
 		</header>
-		<article class="wrapper">
+		<article class="wrapper main-body">
 			<router-view></router-view>
 		</article>
+		<footer>
+			Additional Footer Info
+		</footer>
 	</div>
 </template>
 
@@ -50,6 +53,8 @@ body {
 	font-size: 1rem;
 	color: $text-color;
 	font-family: $font-family;
+	margin: 0;
+	padding: 0;
 }
 
 @supports (font-variation-settings: normal) {
@@ -114,6 +119,10 @@ article {
 	}
 }
 
+.main-body{
+	margin-bottom: 4rem;
+}
+
 button,
 input[type="submit"] {
 	background: $primary-color;
@@ -139,5 +148,14 @@ input[type="submit"] {
 		background: $light-background;
 		color: #bbb;
 	}
+}
+
+footer{
+	background: $primary-color;
+	position: fixed;
+	bottom: 0;
+	padding: 1rem;
+	width: 100%;
+	text-align: center;
 }
 </style>
