@@ -80,8 +80,9 @@ export default {
 		// if currentURL changes (recording is available) notify store and upload
 		currentURL(val) {
 			if (
-				this.$store.getters.getQuestionById(this.id).recordURL !== val
-				&& this.$store.getters.getQuestionById(this.id).recordURL !== null
+				this.$store.getters.getQuestionById(this.id).recordURL !==
+					val &&
+				this.recordURL !== null
 			) {
 				this.$store.dispatch('writeAudio', {
 					id: this.id,

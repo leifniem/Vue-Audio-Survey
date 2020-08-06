@@ -30,7 +30,6 @@ export default {
 			})
 			this.currentURL = URL.createObjectURL(this.currentBlob)
 			this.chunks = []
-			console.log(this.$_stream)
 		},
 		// Initializes a MediaRecorder if a stream exists
 		createRecorder() {
