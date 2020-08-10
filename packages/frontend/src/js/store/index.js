@@ -45,6 +45,12 @@ const store = new Vuex.Store({
 			return state.privacyPolicyAccepted
 		},
 	},
+	actions: {
+		completeSurvey (context) {
+			context.commit('setSessionID', '')
+			context.dispatch('resetQuestions')
+		}
+	}
 })
 
 export default store

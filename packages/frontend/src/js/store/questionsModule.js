@@ -19,6 +19,9 @@ export default {
 		setSuccessfulIndex(state, index) {
 			state.successfullyCompletedQuestionIndex = index
 		},
+		clearQuestions(state) {
+			state.questions = []
+		},
 	},
 	actions: {
 		async writeAudio(context, data) {
@@ -40,6 +43,10 @@ export default {
 				alert(e.msg)
 			}
 		},
+		resetQuestions (context) {
+			context.commit('setSuccessfulIndex', 0)
+			context.commit('clearQuestions')
+		}
 	},
 	getters: {
 		getQuestionById: (state) => (id) => state.questions[id],

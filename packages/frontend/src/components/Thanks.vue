@@ -9,3 +9,12 @@
 		</p>
 	</div>
 </template>
+
+<script>
+export default {
+	name: 'Thanks',
+	beforeMount () {
+		this.$store.dispatch('completeSurvey')
+	}
+}
+</script>

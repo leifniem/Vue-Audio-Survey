@@ -7,7 +7,7 @@ const compression = require('compression')
 const helmet = require('helmet')
 
 // Server constants
-const portNumber = 9000
+const portNumber = 5000
 
 // File upload constants
 const userFilePath = './registeredUsers.json'
