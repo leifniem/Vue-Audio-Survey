@@ -20,7 +20,10 @@ export default {
 			state.successfullyCompletedQuestionIndex = index
 		},
 		clearQuestions(state) {
-			state.questions = []
+			state.questions.map(question => {
+				question.recordURL = null
+				question.blob = null
+			})
 		},
 	},
 	actions: {
