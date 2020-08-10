@@ -20,9 +20,9 @@ export default {
 			state.successfullyCompletedQuestionIndex = index
 		},
 		clearQuestions(state) {
-			state.questions.map(question => {
-				question.recordURL = null
-				question.blob = null
+			Object.keys(state.questions).map(question => {
+				state.questions[question].recordURL = null
+				state.questions[question].blob = null
 			})
 		},
 	},

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+dist_frontend/
+*.log
+.DS_Store
+*.wav
+*.mp3
+uploads/*
+registeredUsers.json
